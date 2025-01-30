@@ -74,67 +74,48 @@ function verificarResposta() {
 
     if (respostaUsuario === trocoEsperado) {
         feedback.innerText = "Correto!";
-        feedback.style.color = "green";
         score += 10;
-        gerarValores();
-    } else {
-        feedback.innerText = `Troco incorreto! O troco esperado é ${trocoEsperado.toFixed(2)} R$`;
-        feedback.style.color = "red";
-        attempts--;
-    }
-
-    scoreDisplay.innerText = score;
-    attemptsDisplay.innerText = attempts;
-
-    if (attempts === 0) {
-        alert("Fim de jogo! Sua pontuação: " + score);
+        scoreDisplay.innerText = score;
         if (score > highScore) {
             highScore = score;
             document.getElementById("highScore").innerText = highScore;
         }
-        score = 0;
-        attempts = 3;
-        gerarValores();
+    } else {
+        feedback.innerText = `Errado! O troco correto é R$${trocoEsperado.toFixed(2)}`;
+        attempts--;
+        attemptsDisplay.innerText = attempts;
+        if (attempts <= 0) {
+            alert("Fim de jogo! Sua pontuação foi " + score);
+            score = 0;
+            attempts = 3;
+            document.getElementById("score").innerText = score;
+            document.getElementById("attempts").innerText = attempts;
+        }
     }
-}
 
-function desenharCenario() {
-    ctx.fillStyle = "lightblue";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = "brown";
-    ctx.fillRect(0, 300, canvas.width, 100);
-    
-    ctx.drawImage(cliente, 50, 180, 100, 100);
-    ctx.drawImage(caixa, 650, 200, 100, 100);
-    ctx.drawImage(dinheiro, 380, 250, 50, 50);
+    gerarValores();
+    document.getElementById("answer").value = '';
 }
 
 function loop() {
-    desenharCenario();
-    requestAnimationFrame(loop);
-}
-
-function startTimer() {
-    const timerDisplay = document.getElementById("timer");
-    const countdown = setInterval(() => {
+    gerarValores();
+    let interval = setInterval(() => {
         timer--;
-        timerDisplay.innerText = timer;
+        document.getElementById("timer").innerText = timer;
         if (timer <= 0) {
-            clearInterval(countdown);
-            alert("Tempo esgotado! Sua pontuação: " + score);
-            if (score > highScore) {
-                highScore = score;
-                document.getElementById("highScore").innerText = highScore;
-            }
+            clearInterval(interval);
+            alert("Fim de jogo! Sua pontuação foi " + score);
             score = 0;
             attempts = 3;
-            gerarValores();
             timer = 30;
-            startTimer();
+            document.getElementById("score").innerText = score;
+            document.getElementById("attempts").innerText = attempts;
+            document.getElementById("timer").innerText = timer;
+            gerarValores();
         }
     }, 1000);
 }
 
-gerarValores();
-startTimer();
+window.onload = function() {
+    loop();
+};
