@@ -22,28 +22,8 @@ cliente.onload = verificarCarregamento;
 caixa.onload = verificarCarregamento;
 dinheiro.onload = verificarCarregamento;
 
-function gerarValores() {
-    function gerarValorAjustado() {
-        return (Math.floor(Math.random() * 90) + 10) + (Math.random() < 0.5 ? 0.00 : 0.05);
-    }
-    
-    valorCompra = parseFloat(gerarValorAjustado().toFixed(2));
-    valorPago = parseFloat((gerarValorAjustado() + valorCompra).toFixed(2));
-    
-    document.getElementById("equation").innerText = `R$${valorPago} - R$${valorCompra} = ?`;
-    document.getElementById("question").innerText = `Compra: R$${valorCompra}, Pago: R$${valorPago}. Qual é o troco?`;
-}
-
-function desenharCenario() {
-    ctx.fillStyle = "lightblue";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = "brown";
-    ctx.fillRect(0, 300, canvas.width, 100);
-    
-    ctx.drawImage(cliente, 50, 180, 100, 100);
-    ctx.drawImage(caixa, 650, 200, 100, 100);
-    ctx.drawImage(dinheiro, 380, 250, 50, 50);
+function gerarValorAleatorio(min, max) {
+    return (Math.random() * (max - min) + min).toFixed(2);
 }
 
 function arredondarValor(valor) {
@@ -73,6 +53,14 @@ function calcularTroco(valorPago, valorProduto) {
     }
 
     return trocoFinal;
+}
+
+function gerarValores() {
+    valorCompra = parseFloat(gerarValorAleatorio(1.00, 20.00));
+    valorPago = parseFloat(gerarValorAleatorio(valorCompra + 1.00, valorCompra + 50.00));
+
+    document.getElementById("equation").innerText = `R$${valorPago} - R$${valorCompra} = ?`;
+    document.getElementById("question").innerText = `Compra: R$${valorCompra}, Pago: R$${valorPago}. Qual é o troco?`;
 }
 
 function verificarResposta() {
@@ -108,6 +96,18 @@ function verificarResposta() {
         attempts = 3;
         gerarValores();
     }
+}
+
+function desenharCenario() {
+    ctx.fillStyle = "lightblue";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.fillStyle = "brown";
+    ctx.fillRect(0, 300, canvas.width, 100);
+    
+    ctx.drawImage(cliente, 50, 180, 100, 100);
+    ctx.drawImage(caixa, 650, 200, 100, 100);
+    ctx.drawImage(dinheiro, 380, 250, 50, 50);
 }
 
 function loop() {
