@@ -14,7 +14,7 @@ dinheiro.src = 'https://cdn-icons-png.flaticon.com/512/1041/1041884.png';
 function verificarCarregamento() {
     imagensCarregadas++;
     if (imagensCarregadas === 3) {
-        loop();
+        carregarItems(); // Carregar os itens após as imagens estarem carregadas
     }
 }
 
@@ -56,11 +56,12 @@ function calcularTroco(valorPago, valorProduto) {
 }
 
 function gerarValores() {
-    valorCompra = parseFloat(gerarValorAleatorio(1.00, 20.00));
+    const randomItem = items[Math.floor(Math.random() * items.length)];
+    valorCompra = randomItem.price;
     valorPago = parseFloat(gerarValorAleatorio(valorCompra + 1.00, valorCompra + 50.00));
 
     document.getElementById("equation").innerText = `R$${valorPago} - R$${valorCompra} = ?`;
-    document.getElementById("question").innerText = `Compra: R$${valorCompra}, Pago: R$${valorPago}. Qual é o troco?`;
+    document.getElementById("question").innerText = `Compra: ${randomItem.name}, Pago: R$${valorPago}. Qual é o troco?`;
 }
 
 function verificarResposta() {
@@ -95,6 +96,15 @@ function verificarResposta() {
 
     gerarValores();
     document.getElementById("answer").value = '';
+}
+
+function carregarItems() {
+    fetch('items.json')
+        .then(response => response.json())
+        .then(data => {
+            window.items = data; // Armazenar os itens no objeto window para acesso global
+            loop();
+        });
 }
 
 function loop() {
