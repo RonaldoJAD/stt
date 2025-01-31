@@ -11,6 +11,10 @@ cliente.src = 'https://cdn-icons-png.flaticon.com/512/1995/1995511.png';
 caixa.src = 'https://cdn-icons-png.flaticon.com/512/2896/2896436.png';
 dinheiro.src = 'https://cdn-icons-png.flaticon.com/512/1041/1041884.png';
 
+cliente.onload = verificarCarregamento;
+caixa.onload = verificarCarregamento;
+dinheiro.onload = verificarCarregamento;
+
 function verificarCarregamento() {
     imagensCarregadas++;
     if (imagensCarregadas === 3) {
@@ -18,9 +22,14 @@ function verificarCarregamento() {
     }
 }
 
-cliente.onload = verificarCarregamento;
-caixa.onload = verificarCarregamento;
-dinheiro.onload = verificarCarregamento;
+function carregarItems() {
+    fetch('items.json')
+        .then(response => response.json())
+        .then(data => {
+            window.items = data; // Armazenar os itens no objeto window para acesso global
+        })
+        .catch(error => console.error('Erro ao carregar os itens:', error));
+}
 
 function gerarValorAleatorio(min, max) {
     return (Math.random() * (max - min) + min).toFixed(2);
@@ -56,12 +65,15 @@ function calcularTroco(valorPago, valorProduto) {
 }
 
 function gerarValores() {
-    const randomItem = items[Math.floor(Math.random() * items.length)];
+    const randomItem = window.items[Math.floor(Math.random() * window.items.length)];
     valorCompra = randomItem.price;
     valorPago = parseFloat(gerarValorAleatorio(valorCompra + 1.00, valorCompra + 50.00));
 
     document.getElementById("equation").innerText = `R$${valorPago} - R$${valorCompra} = ?`;
     document.getElementById("question").innerText = `Compra: ${randomItem.name}, Pago: R$${valorPago}. Qual é o troco?`;
+
+    // Desenhar gráfico
+    desenharGrafico();
 }
 
 function verificarResposta() {
@@ -98,13 +110,11 @@ function verificarResposta() {
     document.getElementById("answer").value = '';
 }
 
-function carregarItems() {
-    fetch('items.json')
-        .then(response => response.json())
-        .then(data => {
-            window.items = data; // Armazenar os itens no objeto window para acesso global
-            loop();
-        });
+function desenharGrafico() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(cliente, 50, 50, 100, 100);
+    ctx.drawImage(caixa, 200, 50, 100, 100);
+    ctx.drawImage(dinheiro, 350, 50, 100, 100);
 }
 
 function loop() {
@@ -126,6 +136,11 @@ function loop() {
     }, 1000);
 }
 
-window.onload = function() {
+function startGame() {
+    document.getElementById("playButton").style.display = 'none';
     loop();
+}
+
+window.onload = function() {
+    // Não iniciar o loop aqui, pois queremos garantir que os itens sejam carregados primeiro
 };
