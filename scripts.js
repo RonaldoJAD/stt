@@ -2,6 +2,8 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 let valorCompra, valorPago, score = 0, attempts = 3, timer = 30, highScore = 0;
 let imagensCarregadas = 0;
+let isPaused = false;
+let interval;
 
 let cliente = new Image();
 let caixa = new Image();
@@ -18,7 +20,7 @@ dinheiro.onload = verificarCarregamento;
 function verificarCarregamento() {
     imagensCarregadas++;
     if (imagensCarregadas === 3) {
-        carregarItems(); // Carregar os itens após as imagens estarem carregadas
+        carregarItems();
     }
 }
 
@@ -26,42 +28,13 @@ function carregarItems() {
     fetch('items.json')
         .then(response => response.json())
         .then(data => {
-            window.items = data; // Armazenar os itens no objeto window para acesso global
+            window.items = data;
         })
         .catch(error => console.error('Erro ao carregar os itens:', error));
 }
 
 function gerarValorAleatorio(min, max) {
     return (Math.random() * (max - min) + min).toFixed(2);
-}
-
-function arredondarValor(valor) {
-    let centavos = valor * 100;
-    if ([1, 2].includes(centavos % 10)) {
-        centavos = Math.floor(centavos / 10) * 10;
-    } else if ([3, 4, 6, 7].includes(centavos % 10)) {
-        centavos = Math.floor(centavos / 10) * 10 + 5;
-    } else {
-        centavos = Math.ceil(centavos / 10) * 10;
-    }
-    return centavos / 100;
-}
-
-function calcularTroco(valorPago, valorProduto) {
-    valorProduto = arredondarValor(valorProduto);
-    let troco = valorPago - valorProduto;
-    const moedas = [1.00, 0.50, 0.25, 0.10, 0.05];
-    let trocoFinal = [];
-
-    for (let moeda of moedas) {
-        let quantidadeMoedas = Math.floor(troco / moeda);
-        troco -= quantidadeMoedas * moeda;
-        if (quantidadeMoedas > 0) {
-            trocoFinal.push({ quantidade: quantidadeMoedas, moeda: moeda });
-        }
-    }
-
-    return trocoFinal;
 }
 
 function gerarValores() {
@@ -72,7 +45,6 @@ function gerarValores() {
     document.getElementById("equation").innerText = `R$${valorPago} - R$${valorCompra} = ?`;
     document.getElementById("question").innerText = `Compra: ${randomItem.name}, Pago: R$${valorPago}. Qual é o troco?`;
 
-    // Desenhar gráfico
     desenharGrafico();
 }
 
@@ -87,22 +59,22 @@ function verificarResposta() {
 
     if (respostaUsuario === trocoEsperado) {
         feedback.innerText = "Correto!";
+        feedback.className = "correct";
         score += 10;
         scoreDisplay.innerText = score;
         if (score > highScore) {
             highScore = score;
             document.getElementById("highScore").innerText = highScore;
+            localStorage.setItem('highScore', highScore);
         }
     } else {
         feedback.innerText = `Errado! O troco correto é R$${trocoEsperado.toFixed(2)}`;
+        feedback.className = "incorrect";
         attempts--;
         attemptsDisplay.innerText = attempts;
         if (attempts <= 0) {
             alert("Fim de jogo! Sua pontuação foi " + score);
-            score = 0;
-            attempts = 3;
-            document.getElementById("score").innerText = score;
-            document.getElementById("attempts").innerText = attempts;
+            restartGame();
         }
     }
 
@@ -119,28 +91,48 @@ function desenharGrafico() {
 
 function loop() {
     gerarValores();
-    let interval = setInterval(() => {
-        timer--;
-        document.getElementById("timer").innerText = timer;
-        if (timer <= 0) {
-            clearInterval(interval);
-            alert("Fim de jogo! Sua pontuação foi " + score);
-            score = 0;
-            attempts = 3;
-            timer = 30;
-            document.getElementById("score").innerText = score;
-            document.getElementById("attempts").innerText = attempts;
+    interval = setInterval(() => {
+        if (!isPaused) {
+            timer--;
             document.getElementById("timer").innerText = timer;
-            gerarValores();
+            if (timer <= 0) {
+                clearInterval(interval);
+                alert("Fim de jogo! Sua pontuação foi " + score);
+                restartGame();
+            }
         }
     }, 1000);
 }
 
 function startGame() {
     document.getElementById("playButton").style.display = 'none';
+    document.getElementById("restartButton").style.display = 'inline';
+    document.getElementById("pauseButton").style.display = 'inline';
     loop();
 }
 
+function restartGame() {
+    clearInterval(interval);
+    score = 0;
+    attempts = 3;
+    timer = 30;
+    document.getElementById("score").innerText = score;
+    document.getElementById("attempts").innerText = attempts;
+    document.getElementById("timer").innerText = timer;
+    document.getElementById("feedback").innerText = '';
+    document.getElementById("feedback").className = '';
+    gerarValores();
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+    document.getElementById("pauseButton").innerText = isPaused ? "Continuar" : "Pausar";
+}
+
 window.onload = function() {
-    // Não iniciar o loop aqui, pois queremos garantir que os itens sejam carregados primeiro
+    const savedHighScore = localStorage.getItem('highScore');
+    if (savedHighScore) {
+        highScore = parseInt(savedHighScore);
+        document.getElementById("highScore").innerText = highScore;
+    }
 };

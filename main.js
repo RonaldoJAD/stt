@@ -26,15 +26,3 @@ function calcularTroco(valorPago, valorProduto) {
 
     return trocoFinal;
 }
-
-document.getElementById('calcular').addEventListener('click', function() {
-    let valorPago = parseFloat(document.getElementById('valorPago').value);
-    let valorProduto = parseFloat(document.getElementById('valorProduto').value);
-    let troco = calcularTroco(valorPago, valorProduto);
-
-    let trocoString = "Troco:\n";
-    for (let item of troco) {
-        trocoString += `${item.quantidade} x ${item.moeda.toFixed(2)} R$\n`;
-    }
-    alert(trocoString);
-});

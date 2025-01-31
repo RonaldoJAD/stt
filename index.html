@@ -8,6 +8,8 @@
 </head>
 <body>
     <button id="playButton" onclick="startGame()">Play</button>
+    <button id="restartButton" onclick="restartGame()" style="display: none;">Reiniciar</button>
+    <button id="pauseButton" onclick="togglePause()" style="display: none;">Pausar</button>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
     <div>
         <p id="equation"></p>
@@ -21,6 +23,7 @@
         <p>Melhor Pontuação: <span id="highScore">0</span></p>
     </div>
     <script src="items.js"></script>
+    <script src="main.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
