@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação do Pedido</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="confirmation">
+        <h1>Confirme seu Pedido</h1>
+
+        <div id="pedidoDetalhes">
+            <p><strong>Nome:</strong> <span id="confirmNome"></span></p>
+            <p><strong>Endereço:</strong> <span id="confirmEndereco"></span></p>
+            <p><strong>Produto:</strong> <span id="confirmProduto"></span></p>
+            <p><strong>Quantidade:</strong> <span id="confirmQuantidade"></span></p>
+            <p><strong>Telefone:</strong> <span id="confirmTelefone"></span></p>
+        </div>
+
+        <button onclick="confirmarPedido()">Confirmar Pedido</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Site de Entregas - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="confirmacao.js"></script>
+</body>
+</html>

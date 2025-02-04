@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Entregas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="main">
+        <h1>Bem-vindo ao nosso site de entregas!</h1>
+        <p>Escolha os produtos e faça seu pedido com facilidade.</p>
+
+        <form id="orderForm" onsubmit="return validateForm()">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required><br>
+
+            <label for="endereco">Endereço de Entrega:</label>
+            <input type="text" id="endereco" name="endereco" required><br>
+
+            <label for="produto">Produto:</label>
+            <select id="produto" name="produto">
+                <option value="racao">Ração</option>
+                <option value="eletronicos">Eletrônicos</option>
+                <option value="hidraulica">Hidráulica</option>
+                <option value="medicamentos">Medicamentos</option>
+                <option value="utilitarios">Utilitários Diários</option>
+            </select><br>
+
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" required><br>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required><br>
+
+            <button type="submit">Confirmar Pedido</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Site de Entregas - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
