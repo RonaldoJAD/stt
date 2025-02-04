@@ -47,6 +47,9 @@ function validateForm() {
     localStorage.setItem('produto', produto);
     localStorage.setItem('telefone', telefone);
 
+    // Salvar o nome do produto
+    localStorage.setItem('produtoNome', produtoNome);
+
     // Redirecionar para a segunda página (confirmação do pedido)
     window.location.href = 'confirmacao.html';
     return false;
