@@ -10,19 +10,35 @@ function validateForm() {
         return false;
     }
 
-    // Verificar se a categoria do produto é "racao" e se o nome e quantidade foram preenchidos
-    if (produto === "racao") {
-        var racaoNome = document.getElementById('racaoNome').value;
-        var quantidadeKg = document.getElementById('quantidadeKg').value;
+    // Verificar se o nome do produto foi preenchido
+    var produtoNome = document.getElementById('produtoNome').value;
+    if (produtoNome === "") {
+        alert("Por favor, preencha o nome do produto.");
+        return false;
+    }
 
-        if (racaoNome === "" || quantidadeKg === "") {
-            alert("Por favor, preencha o nome da ração e a quantidade.");
+    // Verificar se a categoria é "Ração" e a quantidade em kg foi preenchida
+    if (produto === "racao") {
+        var quantidadeKg = document.getElementById('quantidadeKg').value;
+        if (quantidadeKg === "") {
+            alert("Por favor, selecione a quantidade da ração.");
             return false;
         }
 
         // Salvar os detalhes da ração no localStorage
-        localStorage.setItem('racaoNome', racaoNome);
         localStorage.setItem('quantidadeKg', quantidadeKg);
+    }
+
+    // Verificar se a categoria é "Eletrônicos", "Hidráulicos" ou outra e a quantidade em unidades foi preenchida
+    if (produto !== "racao") {
+        var quantidadeUnidade = document.getElementById('quantidadeUnidade').value;
+        if (quantidadeUnidade === "") {
+            alert("Por favor, insira a quantidade em unidades.");
+            return false;
+        }
+
+        // Salvar os detalhes da quantidade em unidades
+        localStorage.setItem('quantidadeUnidade', quantidadeUnidade);
     }
 
     // Salvar as informações gerais no localStorage
@@ -36,14 +52,19 @@ function validateForm() {
     return false;
 }
 
-// Função para exibir os detalhes da ração quando a categoria "Ração" for selecionada
+// Função para exibir os detalhes do produto com base na categoria escolhida
 function toggleProductDetails() {
     var produto = document.getElementById('produto').value;
     var racaoDetails = document.getElementById('racaoDetails');
+    var unidadeDetails = document.getElementById('unidadeDetails');
 
+    // Se o produto for "Ração", mostrar os detalhes de quantidade em kg
     if (produto === "racao") {
-        racaoDetails.style.display = "block"; // Exibir os detalhes da ração
+        racaoDetails.style.display = "block";
+        unidadeDetails.style.display = "none";
     } else {
-        racaoDetails.style.display = "none"; // Ocultar os detalhes da ração
+        // Para outros produtos, mostrar a quantidade em unidades
+        unidadeDetails.style.display = "block";
+        racaoDetails.style.display = "none";
     }
 }
