@@ -27,8 +27,8 @@
             <label for="endereco">Endereço de Entrega:</label>
             <input type="text" id="endereco" name="endereco" required><br>
 
-            <label for="produto">Produto:</label>
-            <select id="produto" name="produto">
+            <label for="produto">Categoria do Produto:</label>
+            <select id="produto" name="produto" onchange="toggleProductDetails()">
                 <option value="racao">Ração</option>
                 <option value="eletronicos">Eletrônicos</option>
                 <option value="hidraulica">Hidráulica</option>
@@ -36,8 +36,39 @@
                 <option value="utilitarios">Utilitários Diários</option>
             </select><br>
 
-            <label for="quantidade">Quantidade:</label>
-            <input type="number" id="quantidade" name="quantidade" required><br>
+            <div id="racaoDetails" class="product-details" style="display: none;">
+                <label for="racaoNome">Nome da Ração:</label>
+                <input type="text" id="racaoNome" name="racaoNome"><br>
+
+                <label for="quantidadeKg">Quantidade (kg):</label>
+                <select id="quantidadeKg" name="quantidadeKg">
+                    <option value="1">1kg</option>
+                    <option value="2">2kg</option>
+                    <option value="3">3kg</option>
+                    <option value="4">4kg</option>
+                    <option value="5">5kg</option>
+                    <option value="6">6kg</option>
+                    <option value="7">7kg</option>
+                    <option value="8">8kg</option>
+                    <option value="9">9kg</option>
+                    <option value="10">10kg</option>
+                    <option value="11">11kg</option>
+                    <option value="12">12kg</option>
+                    <option value="13">13kg</option>
+                    <option value="14">14kg</option>
+                    <option value="15">15kg</option>
+                    <option value="16">16kg</option>
+                    <option value="17">17kg</option>
+                    <option value="18">18kg</option>
+                    <option value="19">19kg</option>
+                    <option value="20">20kg</option>
+                    <option value="21">21kg</option>
+                    <option value="22">22kg</option>
+                    <option value="23">23kg</option>
+                    <option value="24">24kg</option>
+                    <option value="25">25kg</option>
+                </select><br>
+            </div>
 
             <label for="telefone">Telefone:</label>
             <input type="text" id="telefone" name="telefone" required><br>
