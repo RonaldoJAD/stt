@@ -1,63 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lê Rações - Pet Shop</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa de Ração</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="Lê Rações">
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#home">Início</a></li>
-        <li><a href="#produtos">Produtos</a></li>
-        <li><a href="#carrinho">Carrinho</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <h1>Casa de Ração</h1>
+        <nav>
+            <ul>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="carrinho">
+            <a href="#carrinho">Carrinho (0)</a>
+        </div>
+    </header>
 
-  <section id="home" class="banner">
-    <h1>Bem-vindo à Lê Rações!</h1>
-    <p>Os melhores produtos para o seu pet.</p>
-  </section>
+    <main>
+        <section id="produtos" class="produtos">
+            <h2>Nossos Produtos</h2>
+            <div class="produtos-grid">
+                <div class="produto-card">
+                    <img src="racao-cao.jpg" alt="Ração para Cães">
+                    <h3>Ração para Cães</h3>
+                    <p>R$ 50,00</p>
+                    <button onclick="adicionarAoCarrinho('Ração para Cães', 50)">Adicionar ao Carrinho</button>
+                    <button onclick="comprarAgora('Ração para Cães', 50)">Comprar Agora</button>
+                </div>
+                <div class="produto-card">
+                    <img src="racao-gato.jpg" alt="Ração para Gatos">
+                    <h3>Ração para Gatos</h3>
+                    <p>R$ 45,00</p>
+                    <button onclick="adicionarAoCarrinho('Ração para Gatos', 45)">Adicionar ao Carrinho</button>
+                    <button onclick="comprarAgora('Ração para Gatos', 45)">Comprar Agora</button>
+                </div>
+                <!-- Adicione mais produtos aqui -->
+            </div>
+        </section>
 
-  <section id="produtos" class="produtos">
-    <h2>Nossos Produtos</h2>
-    <div class="produto-card">
-      <img src="racao-cao.jpg" alt="Ração para Cães">
-      <h3>Ração para Cães</h3>
-      <p>R$ 50,00</p>
-      <button onclick="adicionarAoCarrinho('Ração para Cães', 50)">Adicionar ao Carrinho</button>
-    </div>
-    <div class="produto-card">
-      <img src="racao-gato.jpg" alt="Ração para Gatos">
-      <h3>Ração para Gatos</h3>
-      <p>R$ 45,00</p>
-      <button onclick="adicionarAoCarrinho('Ração para Gatos', 45)">Adicionar ao Carrinho</button>
-    </div>
-  </section>
+        <section id="sobre">
+            <h2>Sobre Nós</h2>
+            <p>Informações sobre a casa de ração.</p>
+        </section>
 
-  <section id="carrinho" class="carrinho">
-    <h2>Seu Carrinho</h2>
-    <div id="carrinho-itens"></div>
-    <p id="total">Total: R$ 0,00</p>
-    <button onclick="finalizarCompra()">Finalizar Compra</button>
-  </section>
+        <section id="contato">
+            <h2>Contato</h2>
+            <p>Formas de contato.</p>
+        </section>
+    </main>
 
-  <section id="contato" class="contato">
-    <h2>Contato</h2>
-    <p>WhatsApp: (31) 7526-8502</p>
-  </section>
-
-  <footer>
-    <p>&copy; 2023 Lê Rações. Todos os direitos reservados.</p>
-  </footer>
-
-  <script src="scripts.js"></script>
+    <footer>
+        <p>&copy; 2023 Casa de Ração. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
