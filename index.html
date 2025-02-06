@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lê Rações - Pet Shop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Lê Rações">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home">Início</a></li>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="banner">
+    <h1>Bem-vindo à Lê Rações!</h1>
+    <p>Os melhores produtos para o seu pet.</p>
+  </section>
+
+  <section id="produtos" class="produtos">
+    <h2>Nossos Produtos</h2>
+    <div class="produto-card">
+      <img src="racao-cao.jpg" alt="Ração para Cães">
+      <h3>Ração para Cães</h3>
+      <p>R$ 50,00</p>
+      <button onclick="comprarWhatsApp('Ração para Cães', 50)">Comprar</button>
+    </div>
+    <div class="produto-card">
+      <img src="racao-gato.jpg" alt="Ração para Gatos">
+      <h3>Ração para Gatos</h3>
+      <p>R$ 45,00</p>
+      <button onclick="comprarWhatsApp('Ração para Gatos', 45)">Comprar</button>
+    </div>
+  </section>
+
+  <section id="contato" class="contato">
+    <h2>Contato</h2>
+    <p>WhatsApp: (XX) XXXXX-XXXX</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 Lê Rações. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
