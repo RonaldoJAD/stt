@@ -15,6 +15,7 @@
       <ul>
         <li><a href="#home">Início</a></li>
         <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#carrinho">Carrinho</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
@@ -31,19 +32,26 @@
       <img src="racao-cao.jpg" alt="Ração para Cães">
       <h3>Ração para Cães</h3>
       <p>R$ 50,00</p>
-      <button onclick="comprarWhatsApp('Ração para Cães', 50)">Comprar</button>
+      <button onclick="adicionarAoCarrinho('Ração para Cães', 50)">Adicionar ao Carrinho</button>
     </div>
     <div class="produto-card">
       <img src="racao-gato.jpg" alt="Ração para Gatos">
       <h3>Ração para Gatos</h3>
       <p>R$ 45,00</p>
-      <button onclick="comprarWhatsApp('Ração para Gatos', 45)">Comprar</button>
+      <button onclick="adicionarAoCarrinho('Ração para Gatos', 45)">Adicionar ao Carrinho</button>
     </div>
+  </section>
+
+  <section id="carrinho" class="carrinho">
+    <h2>Seu Carrinho</h2>
+    <div id="carrinho-itens"></div>
+    <p id="total">Total: R$ 0,00</p>
+    <button onclick="finalizarCompra()">Finalizar Compra</button>
   </section>
 
   <section id="contato" class="contato">
     <h2>Contato</h2>
-    <p>WhatsApp: (31) 7526-8502 </p>
+    <p>WhatsApp: (31) 7526-8502</p>
   </section>
 
   <footer>
