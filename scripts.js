@@ -3,6 +3,7 @@ let carrinho = [];
 function adicionarAoCarrinho(nome, preco) {
     carrinho.push({ nome, preco });
     atualizarCarrinho();
+    alert(`${nome} foi adicionado ao carrinho!`);
 }
 
 function comprarAgora(nome, preco) {
